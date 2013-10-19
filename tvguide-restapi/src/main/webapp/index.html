@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tv Guide REST api</title>
+    <link rel="stylesheet" href="css/styles.css"/>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#sayHello').click(function (event) {
+                event.preventDefault();
+
+                var result = $('#result'),
+                        name = $.trim($('#name').val());
+
+                result.removeClass('invalid');
+
+                if (!name || !name.length) {
+                    result.addClass('invalid').text('A name is required!');
+                    return;
+                }
+                console.log("clicked: " + name);
+                $.ajax('rest/json/' + name, {
+                    dataType: 'json',
+                    data: {},
+                    type: 'GET',
+                    success: function (data) {
+                        //console.log("success: " + data.result);
+                        $('#result').text(data.result);
+                    }
+                })
+                        .error(function () {
+                            //console.log("error");
+                        });
+            });
+            $('#findBroadcastsSubmit').click(function (event) {
+                var result = $('#resultBroadcasts'),
+                        date = $.trim($('#date').val()),
+                        channel = $.trim($('#channel').val());
+
+                result.removeClass('invalid');
+
+                if (!date || !date.length) {
+                    result.addClass('invalid').text('A date is required!');
+                    return;
+                }
+                if (!channel || !channel.length || channel == "") {
+                    result.addClass('invalid').text('A channel is required!');
+                    return;
+                }
+                console.log("clicked: " + date + " and " + channel);
+
+                $.ajax('xml/broadcasts/' + date + '/' + channel, {
+                    dataType: 'xml',
+                    data: {},
+                    type: 'GET',
+                    success: function (data) {
+                        console.log("success: " + data.result);
+                        $('#resultBroadcasts').text(data.result);
+                    }
+                })
+            });
+        }); // (document).ready
+    </script>
+</head>
+<body>
+Tv Guide REST api<br>
+
+<form name="theForm">
+    <fieldset>
+        <label for="name" id="name_label">Name</label>
+        <input name="name" id="name" type="text" required placeholder="Your Name"/>
+        <input type="submit" id="sayHello" value="Say Hello"/><span id="result"></span>
+    </fieldset>
+</form>
+<form name="findBroadcastsForm">
+    <fieldset>
+        <label for="date" id="date_label">Date</label>
+        <input name="date" id="date" type="text" required placeholder="Date (YYYY-MM-DD)"/>
+        <select name="channel" id="channel">
+            <option value="">---Select channel ---</option>
+            <option value="1">SVT 1</option>
+            <option value="2">SVT 2</option>
+            <option value="3">TV 3</option>
+            <option value="4">TV 4</option>
+        </select>
+        <input type="submit" id="findBroadcastsSubmit" value="Find broadcasts"/><span id="resultBroadcasts"></span>
+    </fieldset>
+</form>
+
+</body>
+</html>
