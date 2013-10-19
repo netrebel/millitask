@@ -3,9 +3,18 @@ TvGuide-RESTapi
 
 Write an application that serves data using a REST­ interface with the following requirements:
 1) Given a specific day and a specific channel, serve the broadcasts that are within 07:00 AM the same day and 07:00 AM the following day
+
+http://localhost:8080/tvguide-restapi/rest/broadcasts/find/2013-10-19/1
+
 2) Given a specific program, serve reruns of the same programs
+
+http://localhost:8080/tvguide-restapi/rest/programs/reruns/33
+
 3) Given a specific series, serve a list of seasons and episodes, with corresponding broadcasts for each episode.
-4) Bonus: Write a feature that you think is beneficial to users 
+
+http://localhost:8080/tvguide-restapi/rest/series/find/1
+
+4) Bonus: Write a feature that you think is beneficial to users
 
 System requirements
 -------------------

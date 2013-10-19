@@ -1,12 +1,21 @@
 package tvguide.rest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import tvguide.rest.models.Broadcast;
-import tvguide.rest.models.Channel;
+import tvguide.service.SearchService;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import java.util.ArrayList;
-import java.util.List;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * A simple CDI service which is able to say hello to someone
@@ -17,6 +26,11 @@ import java.util.List;
 @Stateless
 public class BroadcastService extends BaseEntityService<Broadcast> {
 
+    private final static Logger logger = LoggerFactory.getLogger(BroadcastService.class);
+
+    @Inject
+    SearchService searchService;
+
     public BroadcastService() {
         super(Broadcast.class);
     }
@@ -26,25 +40,33 @@ public class BroadcastService extends BaseEntityService<Broadcast> {
      * serve the broadcasts that are within 07:00 AM the same day and 07:00 AM the following day
      *
      * @param date
-     * @param channel
+     * @param channelId
      * @return
      */
-    List findBroadcasts(String date, Channel channel) {
-        //TODO Implement findBroadcasts
-        List<Broadcast> foundBroadcasts = new ArrayList<Broadcast>();
-        return foundBroadcasts;
+    @GET
+    @Path("/find/{date}/{channelId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String findTodaysBroadcasts(@PathParam("date") String date, @PathParam("channelId") Long channelId) {
+        //TODO Implement findTodaysBroadcasts
+//        List<Broadcast> foundBroadcasts = new ArrayList<Broadcast>();
+//        return foundBroadcasts;
+        logger.debug("Date {} and channelId {}", date, channelId);
+
+        searchService.retrieveBroadcasts(unixTimeFromDate(date), channelId);
+
+        return "{\"result\":\"" + "Date: " + date + " and ChannelId: " + channelId + "\"}";
     }
 
-    /**
-     * Given a specific series, serve a list of seasons and episodes,
-     * with corresponding broadcasts for each episode.
-     *
-     * @param series
-     * @return
-     */
-    List findSeasonsAndEpisodes(String series) {
-        //TODO Implement
-        return null;
+
+    private Long unixTimeFromDate(String receivedDate) {
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date date = formatter.parse(receivedDate);
+            return date.getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+        return null; //invalid date
     }
 
 }

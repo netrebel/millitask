@@ -1,15 +1,26 @@
 package tvguide.rest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import tvguide.rest.models.Program;
+import tvguide.service.SearchService;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import java.util.ArrayList;
-import java.util.List;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 @Path("/programs")
 @Stateless
 public class ProgramService extends BaseEntityService<Program> {
+
+    private final static Logger logger = LoggerFactory.getLogger(ProgramService.class);
+
+    @Inject
+    SearchService searchService;
 
     public ProgramService() {
         super(Program.class);
@@ -18,13 +29,16 @@ public class ProgramService extends BaseEntityService<Program> {
     /**
      * Given a specific program, serve reruns of the same programs
      *
-     * @param program
+     * @param programId
      * @return
      */
-    List findReruns(Program program) {
-        List<Program> reruns = new ArrayList<Program>();
-        reruns.add(new Program());
-        return reruns;
+    @GET
+    @Path("/reruns/{programId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String findReruns(@PathParam("programId") String programId) {
+        logger.debug("Find reruns for Program Id: {}", programId);
+        searchService.retrieveReruns(programId);
+        return "{\"result\":\"" + "programId: " + programId + "\"}";
     }
 
 }
