@@ -2,6 +2,7 @@ TvGuide-RESTapi
 ===================
 
 Write an application that serves data using a REST­ interface with the following requirements:
+
 1) Given a specific day and a specific channel, serve the broadcasts that are within 07:00 AM the same day and 07:00 AM the following day
 
 http://localhost:8080/tvguide-restapi/rest/broadcasts/find/2013-10-19/1
