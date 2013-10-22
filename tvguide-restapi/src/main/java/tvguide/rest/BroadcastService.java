@@ -47,11 +47,7 @@ public class BroadcastService extends BaseEntityService<Broadcast> {
     @Path("/find/{date}/{channelId}")
     @Produces(MediaType.APPLICATION_JSON)
     public String findTodaysBroadcasts(@PathParam("date") String date, @PathParam("channelId") Long channelId) {
-        //TODO Implement findTodaysBroadcasts
-//        List<Broadcast> foundBroadcasts = new ArrayList<Broadcast>();
-//        return foundBroadcasts;
         logger.debug("Date {} and channelId {}", date, channelId);
-
         searchService.retrieveBroadcasts(unixTimeFromDate(date), channelId);
 
         return "{\"result\":\"" + "Date: " + date + " and ChannelId: " + channelId + "\"}";
