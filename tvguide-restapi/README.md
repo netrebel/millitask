@@ -17,6 +17,8 @@ Write an application that serves data using a REST­ interface with the followin
 
         http://localhost:8080/tvguide-restapi/rest/series/find/[seriesId]
 
+        JSON List with [program.season, program.episode, program.beginTime, broadcast.endTime, broadcast.channelId]
+
 4. Bonus: Write a feature that you think is beneficial to users
 
 Other access points to the application

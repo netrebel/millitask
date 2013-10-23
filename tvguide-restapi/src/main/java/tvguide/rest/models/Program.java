@@ -4,13 +4,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 
-/**
- * Created with IntelliJ IDEA.
- * User: miguelredhat
- * Date: 10/17/13
- * Time: 6:07 PM
- * To change this template use File | Settings | File Templates.
- */
 @Entity
 public class Program {
 
@@ -23,7 +16,7 @@ public class Program {
     private String title;
     private String season;
     private String episode;
-    private String series;
+    private Long series;
     private String synopsis;
     private String year;
 
@@ -59,11 +52,11 @@ public class Program {
         this.episode = episode;
     }
 
-    public String getSeries() {
+    public Long getSeries() {
         return series;
     }
 
-    public void setSeries(String series) {
+    public void setSeries(Long series) {
         this.series = series;
     }
 
