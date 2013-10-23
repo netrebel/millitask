@@ -41,9 +41,13 @@ public class SearchService implements Serializable {
         //TODO implement
     }
 
-    public void retrieveReruns(String programId) {
+    /**
+     * @param programId Program ID to find reruns from.
+     */
+    public List<Broadcast> retrieveReruns(Long programId) {
         logger.debug("retrieveReruns with programId {}", programId);
-        //TODO implement
+        return entityManager.createQuery("select b from Broadcast b where b.programId = :programId")
+                .setParameter("programId", programId).getResultList();
     }
 
 

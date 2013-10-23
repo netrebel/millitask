@@ -12,6 +12,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import java.util.List;
 
 @Path("/programs")
 @Stateless
@@ -35,10 +36,9 @@ public class ProgramService extends BaseEntityService<Program> {
     @GET
     @Path("/reruns/{programId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String findReruns(@PathParam("programId") String programId) {
+    public List findReruns(@PathParam("programId") String programId) {
         logger.debug("Find reruns for Program Id: {}", programId);
-        searchService.retrieveReruns(programId);
-        return "{\"result\":\"" + "programId: " + programId + "\"}";
+        return searchService.retrieveReruns(new Long(programId));
     }
 
 }
