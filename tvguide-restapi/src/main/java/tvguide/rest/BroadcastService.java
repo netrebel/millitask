@@ -57,7 +57,8 @@ public class BroadcastService extends BaseEntityService<Broadcast> {
 
 
     /**
-     * Method to return Unix time
+     * Method to return Unix time.
+     * TODO Assuming GMT+2
      *
      * @param givenDate Date in format "yyyy-MM-dd".
      * @return Long with date in Unix time.
@@ -77,8 +78,16 @@ public class BroadcastService extends BaseEntityService<Broadcast> {
         return null; //invalid date
     }
 
+    /**
+     * Use Calendar to calculate the 'next day' at 7am.
+     * TODO Assuming GMT+2
+     *
+     * @param givenDate Requested date.
+     * @return Next day in Unix time at 7am GMT+2.
+     */
     private Long nextDay(String givenDate) {
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        formatter.setTimeZone(TimeZone.getTimeZone("GMT+2"));
         String completeDate = givenDate + " 07:00:00";
         try {
             Date date = formatter.parse(completeDate);

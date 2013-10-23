@@ -20,6 +20,8 @@ public class SearchService implements Serializable {
     private final static Logger logger = LoggerFactory.getLogger(SearchService.class);
 
     /**
+     * Find all the broadcasts from 7am on the given date and until next day before 7am.
+     *
      * @param date      Unix time
      * @param channelId Channel Id
      * @return List with broadcasts found

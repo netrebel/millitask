@@ -40,7 +40,7 @@ insert into Broadcast (begintime, channelid, endtime, programid) values (1381957
 insert into Broadcast (begintime, channelid, endtime, programid) values (1381957200,1,1381968000,11)
 insert into Broadcast (begintime, channelid, endtime, programid) values (1381968000,1,1381975200,14)
 insert into Broadcast (begintime, channelid, endtime, programid) values (1381975200,1,1381982400,13)
-insert into Broadcast (begintime, channelid, endtime, programid) values (1381982400,1,1381986000,null)
+insert into Broadcast (begintime, channelid, endtime, programid) values (1382515200,1,1382518800,1)
 insert into Broadcast (begintime, channelid, endtime, programid) values (1381986000,1,1381989600,12)
 insert into Broadcast (begintime, channelid, endtime, programid) values (1381906800,2,1381910400,17)
 insert into Broadcast (begintime, channelid, endtime, programid) values (1381910400,2,1381914000,19)
